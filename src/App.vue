@@ -1,16 +1,19 @@
 <template>
 
-  <Mele>Hi</Mele>
+  <div>导航栏 |
+    <router-link to="/" >首页</router-link> |
+    <router-link to="/a">a</router-link>
+  </div>
+
+  <hr/>
+
+  <router-view/>
 
 </template>
 
 <script>
-import Mele from './components/Mele.vue'
 
 export default {
   name: 'App',
-  components: {
-    Mele
-  }
 }
 </script>
