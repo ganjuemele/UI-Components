@@ -9,16 +9,16 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; }
-
+  box-sizing: border-box;
+}
 ul,
 ol {
-  list-style: none; }
-
+  list-style: none;
+}
 a {
   text-decoration: none;
-  color: inherit; }
-  a:hover {
-    border-bottom: 1px solid; }
-
-/*# sourceMappingURL=index.css.map */
+  color: inherit;
+&:hover {
+   border-bottom: 1px solid;
+ }
+}
