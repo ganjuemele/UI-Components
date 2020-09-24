@@ -1,12 +1,21 @@
 <template>
-    <button :class="{checked:value}" @click="toggle">
-        <span></span>
-    </button>
-    <div>{{value}}</div>
+    <div class="">
+        <button :class="{checked:value}" @click="toggle">
+            <span />
+        </button>
+        <div>Normal: Orange</div>
+    </div>
+
+    <div class="">
+        <button :class="{green:value}" @click="toggle">
+            <span />
+        </button>
+        <div>Normal: Green</div>
+    </div>
+
 </template>
 
 <script lang="ts">
-    // import { ref } from "vue";
     export default {
         name: 'Switch',
         props: { //接收父组件传来的值
@@ -28,9 +37,24 @@
         height: $h;
         width: $h*2;
         border: none;
-        background: grey;
+        background: #999;
         border-radius: $h/2;
         position: relative;
+        &.checked {
+            background-color: #FFA900;
+            & > span {
+                left: calc(100% - #{$h2} - 2px);
+            }
+        }
+        &:focus {
+            outline: none;
+        }
+        &.green {
+            background-color: #00B893;
+            & > span {
+                left: calc(100% - #{$h2} - 2px);
+            }
+        }
     }
     span{
         position: absolute;
@@ -41,14 +65,5 @@
         background:white;
         border-radius: $h2 / 2;
         transition: left 250ms;
-    }
-    button.checked {
-        background-color: blue;
-        & > span {
-            left: calc(100% - #{$h2} - 2px);
-        }
-    }
-    button:focus {
-        outline: none;
     }
 </style>
