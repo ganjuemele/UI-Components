@@ -1,13 +1,3 @@
 <template>
-    <div>123</div>
+  <div>Tabs 示例</div>
 </template>
-
-<script>
-    export default {
-        name: 'TabsDemo'
-    };
-</script>
-
-<style scoped>
-
-</style>
