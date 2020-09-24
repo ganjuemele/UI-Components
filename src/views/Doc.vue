@@ -18,20 +18,23 @@
                 </li>
             </ol>
         </aside>
-        <main>主内容</main>
+        <main>
+            <router-view />
+        </main>
     </div>
 
 </template>
 
 <script lang="ts">
     import Topnav from "../components/Topnav.vue"
-    import { inject, Ref } from 'vue';
+    import { inject, Ref } from "vue";
     export default {
-        name: 'Doc',
+        name: "Doc",
         components: { Topnav },
         setup(){
-            const menuVisible = inject<Ref<boolean>>('xxx');
-            console.log(menuVisible)
+
+            const menuVisible = inject<Ref<boolean>>('menuVisible');
+            // console.log(menuVisible.value)
             return { menuVisible }
         }
     };
@@ -42,10 +45,7 @@
         background: lightblue;
         width: 150px;
         padding: 16px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        padding-top: 70px;
+
         > h2 {
             margin-bottom: 4px;
         }
@@ -53,6 +53,12 @@
             > li {
                 padding: 4px 0;
             }
+        }
+        @media (max-width:500px) {
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 70px;
         }
     }
 </style>

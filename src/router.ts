@@ -1,9 +1,3 @@
-import { createApp } from 'vue'
-// @ts-ignore
-import App from './App.vue'
-import './index.scss'
-// import { router } from "./router"
-
 import {createWebHashHistory, createRouter} from 'vue-router'
 // @ts-ignore
 import Home from './views/Home.vue'
@@ -21,7 +15,7 @@ import DocDemo from "./components/DocDemo.vue"
 import DialogDemo from "./components/DialogDemo.vue"
 
 const history = createWebHashHistory();
-const router = createRouter({
+export const router = createRouter({
     history: history,
     routes:[
         {
@@ -40,7 +34,6 @@ const router = createRouter({
         }
     ]
 });
-
-const app = createApp(App);
-app.use(router);
-app.mount('#app');
+router.afterEach(() => {
+    console.log("路由切换了");
+});
