@@ -3,7 +3,7 @@
     <Topnav />
     <div class="banner">
       <h1>ABC UI</h1>
-      <h2>一个厉害的 UI 框架</h2>
+      <h2>基于Vue3.0的 UI 框架</h2>
       <p class="actions">
         <a href="https://github.com">GitHub</a>
         <router-link to="/doc">START</router-link>

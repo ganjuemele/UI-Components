@@ -1,31 +1,41 @@
 <template>
-    <div class="">
-        <button :class="{checked:value}" @click="toggle">
+    <div class="switch-module">
+        <button @click="toggle" :class="[{checked:value, orange:value},
+        {'switchShadow switchShadow-orange':evo==='Shadow'}
+        ]">
             <span />
         </button>
-        <div>Normal: Orange</div>
+        <hr />
+        <div>{{evo}}: Orange</div>
     </div>
 
-    <div class="">
-        <button :class="{green:value}" @click="toggle">
+    <div class="switch-module">
+        <button @click="toggle" :class="[{checked:value, green:value},
+        evo==='Shadow'?'switchShadow switchShadow-green':''
+        ]">
             <span />
         </button>
-        <div>Normal: Green</div>
+        <hr/>
+        <div>{{evo}}: Green</div>
     </div>
-
 </template>
 
 <script lang="ts">
     export default {
         name: 'Switch',
         props: { //接收父组件传来的值
-            value: Boolean
+            value: Boolean,
+            evo: String,
+        },
+        data(){
+            return
         },
         setup(props, context) {
+            console.log(props.evo)
             const toggle= () => {
                 context.emit('update:value', !props.value)
             };
-            return {toggle}
+            return { toggle }
         }
     };
 </script>
@@ -33,6 +43,8 @@
 <style lang="scss" scoped>
     $h: 22px;
     $h2: $h - 4px;
+    $abcG: #00B893;
+    $abcO: #FFA900;
     button{
         height: $h;
         width: $h*2;
@@ -40,23 +52,33 @@
         background: #999;
         border-radius: $h/2;
         position: relative;
-        &.checked {
-            background-color: #FFA900;
-            & > span {
-                left: calc(100% - #{$h2} - 2px);
-            }
-        }
+        margin: auto;
         &:focus {
             outline: none;
         }
-        &.green {
-            background-color: #00B893;
+        &.checked {
             & > span {
                 left: calc(100% - #{$h2} - 2px);
             }
         }
+        &.orange {
+            background-color: $abcO;
+        }
+        &.green {
+            background-color: $abcG;
+        }
+        &.switchShadow {
+            box-shadow: 0 2px 3px #999;
+        }
+        &.switchShadow-green.checked {
+            box-shadow: 0 2px 4px $abcG;
+        }
+        &.switchShadow-orange.checked {
+            box-shadow: 0 2px 4px $abcO;
+        }
+
     }
-    span{
+    span {
         position: absolute;
         top: 2px;
         left: 2px;
@@ -66,4 +88,16 @@
         border-radius: $h2 / 2;
         transition: left 250ms;
     }
+    .switch-module {
+        display: inline-flex;
+        width: 44vw;
+        border: 1px solid grey;
+        flex-direction: column;
+        padding: 10px 5px;
+        margin: 10px 3px;
+        > hr {
+            margin: 8px;
+        }
+    }
+
 </style>

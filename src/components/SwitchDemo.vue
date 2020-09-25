@@ -1,18 +1,22 @@
 <template>
-  <div>
-    <Switch v-model:value="y" />
+  <div v-for="(item, index) in evo" :item="item" >
+    <Switch v-model:value="clickStatus" :evo="evo[index]" />
   </div>
 </template>
 
 <script lang="ts">
   import Switch from '../lib/Switch.vue';
-  import {ref} from 'vue'
+  import { ref } from 'vue'
   export default {
-    // name: "SwitchDemo",
     components: {Switch},
+    data(){
+      return {
+        evo: ["Normal", "Shadow"],
+      }
+    },
     setup(){
-      const y = ref(!0);
-      return {y}
+      const clickStatus = ref(!0);
+      return { clickStatus }
     }
   }
 </script>
