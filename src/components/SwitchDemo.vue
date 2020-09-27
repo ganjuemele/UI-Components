@@ -11,7 +11,7 @@
     components: {Switch},
     data(){
       return {
-        evo: ["Normal", "Shadow"],
+        evo: ["Normal", "Shadow", "Disabled", "Text"],
       }
     },
     setup(){

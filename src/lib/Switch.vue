@@ -1,19 +1,42 @@
 <template>
     <div class="switch-module">
         <button @click="toggle" :class="[{checked:value, orange:value},
-        {'switchShadow switchShadow-orange':evo==='Shadow'}
-        ]">
-            <span />
+        {'switchShadow switchShadow-orange':evo==='Shadow'},
+        {'checkedDisBgc-orange':value===true&&toggleDisable===true},
+        {uncheckedDisBgc:value===false&&toggleDisable===true}
+        ]" :disabled="evo==='Disabled'&&toggleDisable"
+        >
+            <span class="switchControl" />
+            <span v-if="evo==='Text'" class="switchText" :class="value?'switchTextOn':'switchTextOff'" />
         </button>
+
+        <button v-if="evo==='Disabled'"
+                style="width:auto;border-radius:3px;padding:0 6px;color:#fff;margin-top:10px;"
+                @click="switchControl" :class="{switchControl:toggleDisable}"
+        >
+            Toggle disable
+        </button>
+
         <hr />
+
         <div>{{evo}}: Orange</div>
     </div>
 
     <div class="switch-module">
         <button @click="toggle" :class="[{checked:value, green:value},
-        evo==='Shadow'?'switchShadow switchShadow-green':''
-        ]">
-            <span />
+            evo==='Shadow'?'switchShadow switchShadow-green':'',
+            {'checkedDisBgc-green':value===true&&toggleDisable===!0},
+            {uncheckedDisBgc:value===false&&toggleDisable===true}]"
+            :disabled="evo==='Disabled'&&toggleDisable"
+        >
+            <span class="switchControl" />
+            <span v-if="evo==='Text'" class="switchText" :class="value?'switchTextOn':'switchTextOff'" />
+        </button>
+        <button v-if="evo==='Disabled'"
+                style="width:auto;border-radius:3px;padding:0 6px;color:#fff;margin-top:10px;"
+                @click="switchControl" :class="{switchControl:toggleDisable}"
+        >
+            Toggle disable
         </button>
         <hr/>
         <div>{{evo}}: Green</div>
@@ -28,14 +51,19 @@
             evo: String,
         },
         data(){
-            return
+
+            return { toggleDisable: !1 }
         },
         setup(props, context) {
             console.log(props.evo)
             const toggle= () => {
                 context.emit('update:value', !props.value)
             };
-            return { toggle }
+            const switchControl = function() { //箭头函数无this
+                console.log('dis', context, this.toggleDisable)
+                this.toggleDisable= !this.toggleDisable;
+            };
+            return { toggle, switchControl }
         }
     };
 </script>
@@ -43,7 +71,7 @@
 <style lang="scss" scoped>
     $h: 22px;
     $h2: $h - 4px;
-    $abcG: #00B893;
+    $abcG: #10C0B0;
     $abcO: #FFA900;
     button{
         height: $h;
@@ -76,17 +104,40 @@
         &.switchShadow-orange.checked {
             box-shadow: 0 2px 4px $abcO;
         }
-
+        &.checkedDisBgc-green {
+            background-color: rgba(0, 184, 147, 0.3);
+        }
+        &.checkedDisBgc-orange {
+            background-color: rgba(255, 169, 0, 0.3);
+        }
     }
-    span {
+    span.switchControl {
         position: absolute;
         top: 2px;
         left: 2px;
         height: $h2;
         width: $h2;
-        background:white;
+        background: white;
         border-radius: $h2 / 2;
-        transition: left 250ms;
+        transition: all .3s cubic-bezier(0, 0.48, 0.68, 1.38);
+    }
+    span.switchText::after {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        top: 0;
+        height: 22px;
+        color: white;
+        font-weight: bold;
+        font-size: 11px;
+    }
+    span.switchTextOn::after {
+        content: '关';
+        left: 5px;
+    }
+    span.switchTextOff::after {
+        content: '开';
+        right: 5px;
     }
     .switch-module {
         display: inline-flex;
@@ -99,5 +150,10 @@
             margin: 8px;
         }
     }
-
+    .switchControl {
+        background-color: #ddd;
+    }
+    .uncheckedDisBgc {
+        background-color: #ddd;
+    }
 </style>
