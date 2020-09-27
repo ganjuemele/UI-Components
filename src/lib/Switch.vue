@@ -3,17 +3,14 @@
         <button @click="toggle" :class="[{checked:value, orange:value},
         {'switchShadow switchShadow-orange':evo==='Shadow'},
         {'checkedDisBgc-orange':value===true&&toggleDisable===true},
-        {uncheckedDisBgc:value===false&&toggleDisable===true}
-        ]" :disabled="evo==='Disabled'&&toggleDisable"
-        >
+        {uncheckedDisBgc:value===false&&toggleDisable===true}]"
+        :disabled="evo==='Disabled'&&toggleDisable">
             <span class="switchControl" />
             <span v-if="evo==='Text'" class="switchText" :class="value?'switchTextOn':'switchTextOff'" />
         </button>
 
-        <button v-if="evo==='Disabled'"
-                style="width:auto;border-radius:3px;padding:0 6px;color:#fff;margin-top:10px;"
-                @click="switchControl" :class="{switchControl:toggleDisable}"
-        >
+        <button v-if="evo==='Disabled'" @click="switchControl" :class="{switchControl:toggleDisable}"
+                style="width:auto;border-radius:3px;padding:0 6px;color:#fff;margin-top:10px;">
             Toggle disable
         </button>
 
@@ -24,18 +21,15 @@
 
     <div class="switch-module">
         <button @click="toggle" :class="[{checked:value, green:value},
-            evo==='Shadow'?'switchShadow switchShadow-green':'',
-            {'checkedDisBgc-green':value===true&&toggleDisable===!0},
-            {uncheckedDisBgc:value===false&&toggleDisable===true}]"
-            :disabled="evo==='Disabled'&&toggleDisable"
-        >
+        evo==='Shadow'?'switchShadow switchShadow-green':'',
+        {'checkedDisBgc-green':value===true&&toggleDisable===!0},
+        {uncheckedDisBgc:value===false&&toggleDisable===true}]"
+        :disabled="evo==='Disabled'&&toggleDisable">
             <span class="switchControl" />
             <span v-if="evo==='Text'" class="switchText" :class="value?'switchTextOn':'switchTextOff'" />
         </button>
-        <button v-if="evo==='Disabled'"
-                style="width:auto;border-radius:3px;padding:0 6px;color:#fff;margin-top:10px;"
-                @click="switchControl" :class="{switchControl:toggleDisable}"
-        >
+        <button v-if="evo==='Disabled'" @click="switchControl" :class="{switchControl:toggleDisable}"
+                style="width:auto;border-radius:3px;padding:0 6px;color:#fff;margin-top:10px;">
             Toggle disable
         </button>
         <hr/>
@@ -55,12 +49,12 @@
             return { toggleDisable: !1 }
         },
         setup(props, context) {
-            console.log(props.evo)
+            // console.log(props.evo)
             const toggle= () => {
                 context.emit('update:value', !props.value)
             };
             const switchControl = function() { //箭头函数无this
-                console.log('dis', context, this.toggleDisable)
+                // console.log('dis', context, this.toggleDisable)
                 this.toggleDisable= !this.toggleDisable;
             };
             return { toggle, switchControl }
@@ -121,15 +115,24 @@
         border-radius: $h2 / 2;
         transition: all .3s cubic-bezier(0, 0.48, 0.68, 1.38);
     }
+    span.switchControl:hover {
+        animation: swchCtrl 2s ease-in-out;
+    }
+    @keyframes swchCtrl {
+        from {width: 22px;}
+        50% {width: 30px;}
+
+        to {width: 22px;}
+    }
     span.switchText::after {
         position: absolute;
+        height: 22px;
         display: flex;
         align-items: center;
         top: 0;
-        height: 22px;
         color: white;
         font-weight: bold;
-        font-size: 11px;
+        font-size: 12px;
     }
     span.switchTextOn::after {
         content: '关';
