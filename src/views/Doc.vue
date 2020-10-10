@@ -28,6 +28,7 @@
     </div>
   </div>
 </template>
+
 <script lang="ts">
 import Topnav from "../components/Topnav.vue";
 import { inject, Ref } from "vue";
@@ -35,11 +36,12 @@ export default {
   components: { Topnav },
   setup() {
     const menuVisible = inject<Ref<boolean>>("menuVisible"); // get
-    console.log(menuVisible)
+    // console.log(menuVisible)
     return { menuVisible };
   },
 };
 </script>
+
 <style lang="scss" scoped>
 .layout {
   display: flex;
