@@ -35,6 +35,7 @@ export default {
   components: { Topnav },
   setup() {
     const menuVisible = inject<Ref<boolean>>("menuVisible"); // get
+    console.log(menuVisible)
     return { menuVisible };
   },
 };
