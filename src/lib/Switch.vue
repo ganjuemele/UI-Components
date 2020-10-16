@@ -113,17 +113,16 @@
         width: $h2;
         background: white;
         border-radius: $h2 / 2;
-        transition: all .3s cubic-bezier(0, 0.48, 0.68, 1.38);
+        transition: all .3s cubic-bezier(.1, 0.7, 0.25, 1.2);
     }
-    span.switchControl:hover {
-        animation: swchCtrl 2s ease-in-out;
-    }
-    @keyframes swchCtrl {
-        from {width: 22px;}
-        50% {width: 30px;}
-
-        to {width: 22px;}
-    }
+    /*span.switchControl:hover {*/
+    /*    animation: swchCtrl 2s ease-in-out;*/
+    /*}*/
+    /*@keyframes swchCtrl {*/
+    /*    from {width: 22px;}*/
+    /*    50% {width: 30px;}*/
+    /*    to {width: 22px;}*/
+    /*}*/
     span.switchText::after {
         position: absolute;
         height: 22px;
