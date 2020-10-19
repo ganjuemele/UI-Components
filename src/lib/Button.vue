@@ -1,24 +1,50 @@
 <template>
     <button class="abc-button"
-    :class="{[`abc-theme-${theme}`]:theme}"
+            :class="classes"
+            :disabled="disabled"
     >
+        <span v-if="loading" class="abc-loadingIndicator" />
         <slot/>
     </button>
 </template>
 
 <script lang="ts">
+    import { computed } from "vue";
     export default {
         // inheritAttrs: false,
         props: {
             theme: {
                 type: String,
                 default: 'button'
+            },
+            size: {
+                type: String,
+                default: "normal"
+            },
+            level: {
+                type: String,
+                default: "normal"
+            },
+            disabled: {
+                type: Boolean,
+                default: false
+            },
+            loading: {
+                type: Boolean,
+                default: false
             }
         },
         // name: 'Button',
-        setup(props, context) {
-            const { size, ...rest } = context.attrs;
-            return {size, rest}
+        setup(props) {
+            const { theme, size, level } = props;
+            const classes = computed( () => {
+                return {
+                    [`abc-theme-${theme}`]: theme,
+                    [`abc-size-${size}`]: size,
+                    [`abc-level-${level}`]: level
+                }
+            });
+            return { classes }
         }
     };
 </script>
@@ -26,10 +52,10 @@
 <style lang="scss">
     $h: 32px;
     $border-color: #d9d9d9;
-    $color: #333;
-    $blue: #40a9ff;
     $abcG: #10C0B0;
     $abcO: #FFA900;
+    $red: red;
+    $grey: grey;
     $radius: 4px;
     .abc-button {
         box-sizing: border-box;
@@ -41,16 +67,17 @@
         align-items: center;
         white-space: nowrap;
         background-color: #fff;
-        color: $color;
-        border: 1px solid $border-color;
+        color: $abcO;
+        border: 1px solid $abcO;
         border-radius: $radius;
-        box-shadow: 0 1px 0 fade-out(black,0.95);
+        box-shadow: 0 1px 0 fade-out(black, 0.95);
+        transition: background 250ms;
         & + & {
             margin-left: 8px;
         }
         &:hover, &:focus {
-            color: $blue;
-            border-color: $blue;
+            color: $abcO;
+            border-color: $abcO;
         }
         &:focus {
             outline: none;
@@ -61,9 +88,9 @@
         &.abc-theme-link {
             border-color: transparent;
             box-shadow: none;
-            color: $blue;
+            color: $abcO;
             &:hover,&:focus {
-                color: lighten($blue, 10%);
+                color: lighten($abcO, 10%);
             }
         }
         &.abc-theme-text {
@@ -76,5 +103,86 @@
                 background : darken(white, 5%);
             }
         }
+        &.abc-size-big {
+            font-size: 24px;
+            height: 48px;
+            padding: 0 16px;
+        }
+        &.abc-size-small {
+            font-size: 12px;
+            height: 20px;
+            padding: 0 4px;
+        }
+        &.abc-theme-button {
+            &.abc-level-main {
+                background: $abcO;
+                color: white;
+                border-color: $abcO;
+                &:hover,&:focus {
+                    background: darken($abcO, 10%);
+                    border-color: darken($abcO, 10%);
+                }
+            }
+        }
+        &.abc-level-danger {
+            background: $red;
+            border-color: red;
+            color: white;
+            &:hover,&:focus {
+                background: darken($red, 10%);
+                border-color: darken($red, 10%);
+            }
+        }
+        &.abc-theme-link {
+            &.abc-level-danger {
+                color: white;
+                &:hover, &focus {
+                    color: darken($red, 10%);
+                }
+            }
+        }
+        &.abc-theme-text {
+            &.abc-level-main {
+                color: $abcO;
+                &:hover, &:focus {
+                    color:darken($abcO, 10%)
+                }
+            }
+            &.abc-level-danger {
+                color: white;
+                &:hover, &:focus {
+                    color: darken($red, 10%);
+                }
+            }
+        }
+        &.abc-theme-button {
+            &[disable] {
+                cursor: not-allowed;
+                color: $grey;
+                &:hover {
+                    border-color: $grey;
+                }
+            }
+        }
+        &.abc-theme-link, &abc-theme-text {
+            &[disabled] {
+                cursor: not-allowed;
+                color: $grey;
+            }
+        }
+        > .abc-loadingIndicator{
+            width: 14px;
+            height: 14px;
+            display: inline-block;
+            margin-right: 4px;
+            border-radius: 8px;
+            border: 2px solid;
+            border-color: lighten($abcG,10%) $abcG darken($abcG, 10%) transparent;
+            animation: abc-spin 1.2s infinite linear;
+        }
+    }
+    @keyframes abc-spin {
+        0%{transform: rotate(0deg)}
+        100%{transform: rotate(360deg)}
     }
 </style>

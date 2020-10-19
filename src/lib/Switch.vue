@@ -66,7 +66,7 @@
     $h2: $h - 4px;
     $abcG: #10C0B0;
     $abcO: #FFA900;
-    button {
+    .switch-module button {
         height: $h;
         width: $h*2;
         border: none;
