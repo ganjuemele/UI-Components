@@ -1,6 +1,6 @@
 <template>
     <div class="switch-module">
-        <button @click="toggle" :class="[{checked:value, orange:value},
+        <button @click="toggle" :class="[{'abc-checked':value, 'abc-orange':value},
         {'switchShadow switchShadow-orange':evo==='Shadow'},
         {'checkedDisBgc-orange':value===true&&toggleDisable===true},
         {uncheckedDisBgc:value===false&&toggleDisable===true}]"
@@ -20,7 +20,7 @@
     </div>
 
     <div class="switch-module">
-        <button @click="toggle" :class="[{checked:value, green:value},
+        <button @click="toggle" :class="[{'abc-checked':value, 'abc-green':value},
         evo==='Shadow'?'switchShadow switchShadow-green':'',
         {'checkedDisBgc-green':value===true&&toggleDisable===!0},
         {uncheckedDisBgc:value===false&&toggleDisable===true}]"
@@ -66,7 +66,7 @@
     $h2: $h - 4px;
     $abcG: #10C0B0;
     $abcO: #FFA900;
-    button{
+    button {
         height: $h;
         width: $h*2;
         border: none;
@@ -77,24 +77,24 @@
         &:focus {
             outline: none;
         }
-        &.checked {
+        &.abc-checked {
             & > span {
                 left: calc(100% - #{$h2} - 2px);
             }
         }
-        &.orange {
+        &.abc-orange {
             background-color: $abcO;
         }
-        &.green {
+        &.abc-green {
             background-color: $abcG;
         }
         &.switchShadow {
             box-shadow: 0 2px 3px #999;
         }
-        &.switchShadow-green.checked {
+        &.switchShadow-green.abc-checked {
             box-shadow: 0 2px 4px $abcG;
         }
-        &.switchShadow-orange.checked {
+        &.switchShadow-orange.abc-checked {
             box-shadow: 0 2px 4px $abcO;
         }
         &.checkedDisBgc-green {

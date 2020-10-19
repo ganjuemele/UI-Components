@@ -28,6 +28,8 @@
     $border-color: #d9d9d9;
     $color: #333;
     $blue: #40a9ff;
+    $abcG: #10C0B0;
+    $abcO: #FFA900;
     $radius: 4px;
     .abc-button {
         box-sizing: border-box;
@@ -55,6 +57,24 @@
         }
         &::-moz-focus-inner {
             border: 0;
+        }
+        &.abc-theme-link {
+            border-color: transparent;
+            box-shadow: none;
+            color: $blue;
+            &:hover,&:focus {
+                color: lighten($blue, 10%);
+            }
+        }
+        &.abc-theme-text {
+            border-color: transparent;
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+            color: inherit;
+            &:hover,&:focus {
+                background : darken(white, 5%);
+            }
         }
     }
 </style>
