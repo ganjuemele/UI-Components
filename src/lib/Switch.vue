@@ -45,7 +45,6 @@
             evo: String,
         },
         data(){
-
             return { toggleDisable: !1 }
         },
         setup(props, context) {
@@ -62,7 +61,7 @@
     };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     $h: 22px;
     $h2: $h - 4px;
     $abcG: #10C0B0;
