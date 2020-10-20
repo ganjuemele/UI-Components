@@ -17,6 +17,10 @@
                 type: String,
                 default: 'button'
             },
+            inverse: {
+                type: String,
+                default: 'button'
+            },
             size: {
                 type: String,
                 default: "normal"
@@ -32,16 +36,21 @@
             loading: {
                 type: Boolean,
                 default: false
+            },
+            round: {
+                type: Boolean,
+                default: false
             }
         },
-        // name: 'Button',
         setup(props) {
-            const { theme, size, level } = props;
+            const { theme, size, level, round, inverse } = props;
             const classes = computed( () => {
                 return {
                     [`abc-theme-${theme}`]: theme,
+                    [`abc-inverse-${inverse}`]: inverse,
                     [`abc-size-${size}`]: size,
-                    [`abc-level-${level}`]: level
+                    [`abc-level-${level}`]: level,
+                    "abc-button-round": round
                 }
             });
             return { classes }
@@ -85,12 +94,23 @@
         &::-moz-focus-inner {
             border: 0;
         }
+        &.abc-size-big {
+            font-size: 24px;
+            height: 48px;
+            padding: 0 16px;
+        }
+        &.abc-size-small {
+            font-size: 12px;
+            height: 20px;
+            padding: 0 4px;
+        }
+
         &.abc-theme-link {
             border-color: transparent;
             box-shadow: none;
-            color: $abcO;
-            &:hover,&:focus {
-                color: lighten($abcO, 10%);
+            color: $abcG;
+            &:hover, &:focus {
+                color: lighten($abcO, 5%);
             }
         }
         &.abc-theme-text {
@@ -103,74 +123,109 @@
                 background : darken(white, 5%);
             }
         }
-        &.abc-size-big {
-            font-size: 24px;
-            height: 48px;
-            padding: 0 16px;
-        }
-        &.abc-size-small {
-            font-size: 12px;
-            height: 20px;
-            padding: 0 4px;
-        }
+
         &.abc-theme-button {
             &.abc-level-main {
                 background: $abcO;
                 color: white;
                 border-color: $abcO;
                 &:hover,&:focus {
-                    background: darken($abcO, 10%);
-                    border-color: darken($abcO, 10%);
+                    background: darken($abcO, 5%);
+                    border-color: darken($abcO, 5%);
                 }
             }
-        }
-        &.abc-level-danger {
-            background: $red;
-            border-color: red;
-            color: white;
-            &:hover,&:focus {
-                background: darken($red, 10%);
-                border-color: darken($red, 10%);
+            &.abc-level-danger {
+                background: red;
+                border-color: red;
+                color: white;
+                &:hover,&:focus {
+                    background: darken(red, 5%);
+                    border-color: darken(red, 5%);
+                }
+            }
+            &.abc-level-info {
+                background: #ccc;
+                border-color: #ccc;
+                color: white;
+                &:hover,&:focus {
+                    background: darken(#ccc, 10%);
+                    border-color: darken(#ccc, 10%);
+                }
+            }
+            &.abc-level-success {
+                background: $abcG;
+                border-color: $abcG;
+                color: white;
+                &:hover,&:focus {
+                    background: darken($abcG, 6%);
+                    border-color: darken($abcG, 6%);
+                }
             }
         }
         &.abc-theme-link {
             &.abc-level-danger {
-                color: white;
+                color: red;
                 &:hover, &focus {
-                    color: darken($red, 10%);
+                    color: $abcO;
                 }
             }
         }
         &.abc-theme-text {
             &.abc-level-main {
                 color: $abcO;
-                &:hover, &:focus {
-                    color:darken($abcO, 10%)
-                }
+            }
+            &.abc-level-success {
+                color: $abcG;
             }
             &.abc-level-danger {
-                color: white;
-                &:hover, &:focus {
-                    color: darken($red, 10%);
-                }
+                color: red;
             }
+        }
+        &.abc-button-round {
+            border-radius: 16px;
         }
         &.abc-theme-button {
-            &[disable] {
+            &[disabled] {
+                background: lighten($abcO, 20%);
+                border: none;
+                color: white;
                 cursor: not-allowed;
-                color: $grey;
-                &:hover {
-                    border-color: $grey;
+                &:hover,&:focus {
+                    background: lighten($abcO, 20%);
                 }
             }
         }
+        &.abc-level-danger {
+            &[disabled] {
+                background: lighten(red, 20%);
+                border: none;
+                color: white;
+                cursor: not-allowed;
+                &:hover,&:focus {
+                    background: lighten(red, 20%);
+                }
+            }
+        }
+        &.abc-level-success {
+            &[disabled] {
+                background: lighten($abcG, 20%);
+                border: none;
+                color: white;
+                cursor: not-allowed;
+                &:hover,&:focus {
+                    background: lighten($abcG, 20%);
+                }
+            }
+        }
+
         &.abc-theme-link, &abc-theme-text {
             &[disabled] {
                 cursor: not-allowed;
-                color: $grey;
+                color: grey;
             }
         }
-        > .abc-loadingIndicator{
+
+        > .abc-loadingIndicator {
             width: 14px;
             height: 14px;
             display: inline-block;
@@ -185,4 +240,6 @@
         0%{transform: rotate(0deg)}
         100%{transform: rotate(360deg)}
     }
+
+
 </style>
